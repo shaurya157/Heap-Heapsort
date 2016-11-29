@@ -9,16 +9,18 @@ class BinaryMinHeap
   end
 
   def extract
-    raise 'no element to extract' if count == 0
+    raise "no element to extract" if count == 0
 
-    if store.length == 1
-      return @store.pop
+    val = store[0]
+
+    if count > 1
+      store[0] = store.pop
+      self.class.heapify_down(store, 0, &@prc)
     else
-      @store[0], @store[count - 1] = @store[count - 1], @store[0]
-      val = @store.pop
-      BinaryMinHeap.heapify_down(@store, 0, @prc)
-      return @store.pop
+      store.pop
     end
+
+    val
   end
 
   def peek
@@ -28,7 +30,7 @@ class BinaryMinHeap
 
   def push(val)
     @store << val
-    BinaryMinHeap.heapify_up(@store, count - 1, @prc)
+    BinaryMinHeap.heapify_up(@store, count - 1, &@prc)
   end
 
   protected
