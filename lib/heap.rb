@@ -10,7 +10,7 @@ class BinaryMinHeap
 
   def extract
     raise 'no element to extract' if count == 0
-    
+
     if store.length == 1
       return @store.pop
     else
@@ -22,6 +22,8 @@ class BinaryMinHeap
   end
 
   def peek
+    raise 'no elements in heap' if count == 0
+    @store[0]
   end
 
   def push(val)
